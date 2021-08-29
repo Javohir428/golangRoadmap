@@ -1,0 +1,50 @@
+syntax = "proto3";
+package api;
+
+option go_package = "golang_roadmap/tasks_for_grpc/contact_list/proto;api";
+
+message Contact {
+    string id = 1;
+    string first_name = 2;
+    string last_name = 3;
+    string phone = 4;
+    string email = 5;
+    int64 position = 6;
+}
+
+message AddResponse{
+    string id = 1;
+}
+
+message EmptyResponse{}
+
+
+message DeleteResponse{}
+
+message ListResponse{
+    repeated Contact contact = 1;
+}
+
+message UpdateRequest {
+    string id = 1;
+    Contact contact = 2;
+}
+
+message GetRequest {
+    string id = 1;
+}
+
+message DeleteRequest {
+    string id = 1;
+}
+
+message Empty {}
+
+
+service ContactService {
+    rpc Add(Contact) returns (AddResponse);
+    rpc Update(UpdateRequest) returns (Empty);
+    rpc Get(GetRequest) returns (Contact);
+    rpc Delete(DeleteRequest) returns (Empty);
+    rpc List(Empty) returns (ListResponse);
+}

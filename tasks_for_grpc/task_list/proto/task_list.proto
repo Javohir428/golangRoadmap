@@ -1,0 +1,51 @@
+syntax = "proto3";
+package api;
+
+option go_package = "golang_roadmap/tasks_for_grpc/task_list/proto;api";
+
+message Task {
+    string id = 1;
+    string name = 2;
+    string status = 3;
+    string priority = 4;
+    string created_at = 5;
+    string created_by = 6;
+    string due_date = 7;
+}
+
+message AddResponse{
+    string id = 1;
+}
+
+message EmptyResponse{}
+
+
+message DeleteResponse{}
+
+message ListResponse{
+    repeated Task task = 1;
+}
+
+message UpdateRequest {
+    string id = 1;
+    Task task = 2;
+}
+
+message GetRequest {
+    string id = 1;
+}
+
+message DeleteRequest {
+    string id = 1;
+}
+
+message Empty {}
+
+
+service TaskService {
+    rpc Add(Task) returns (AddResponse);
+    rpc Update(UpdateRequest) returns (Empty);
+    rpc Get(GetRequest) returns (Task);
+    rpc Delete(DeleteRequest) returns (Empty);
+    rpc List(Empty) returns (ListResponse);
+}
